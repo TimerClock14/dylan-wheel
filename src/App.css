@@ -1,0 +1,19 @@
+.App {
+  padding: 24px 32px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  column-gap: 16px;
+}
+
+.lists-and-queue {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1.25fr 0.75fr;
+  row-gap: 40px;
+}
+
+.lists {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 80px;
+}

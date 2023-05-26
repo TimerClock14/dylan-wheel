@@ -1,0 +1,47 @@
+button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  border-width: 2px;
+  border-style: solid;
+}
+
+button:disabled {
+  opacity: 0.8;
+}
+
+button.primary {
+  background-color: var(--white);
+  color: var(--black);
+  border-color: var(--white);
+}
+
+button.secondary {
+  background-color: var(--darkgrey);
+  color: var(--white);
+  border-color: var(--darkgrey);
+}
+
+button.tertiary {
+  background-color: var(--black);
+  color: var(--white);
+  border-color: var(--white);
+}
+
+button.transparent {
+  background-color: transparent;
+  color: var(--white);
+  border-color: transparent;
+}
+
+button.icon {
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+}
+
+button.round {
+  border-radius: 999999999px;
+}
