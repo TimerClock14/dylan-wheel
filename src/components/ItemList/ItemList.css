@@ -16,36 +16,43 @@
   border-radius: 4px;
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
 .header-text {
   font-size: 28px;
   line-height: 36px;
 }
 
-.list-item > div {
+.value-input, input {
   width: 100%;
 }
 
-.list-item:not(:last-of-type) {
-  margin-bottom: 8px;
+.list-item {
+  margin-top: 8px;
 }
 
 .add-button {
   display: flex;
+  justify-content: space-around;
   align-items: center;
+  width: 100%;
 }
 
-.add-button > *:not(:last-child) {
+.add-btn-content {
+  display: flex;
+}
+
+.add-btn-content > *:not(:last-child) {
   margin-right: 8px;
   flex-wrap: nowrap;
 }
 
 .rotate {
   transform: rotate(45deg);
+}
+
+.no-value {
+  opacity: 0.6;
+}
+
+.switch {
+  margin-right: 8px;
 }

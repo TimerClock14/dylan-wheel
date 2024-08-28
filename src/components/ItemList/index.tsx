@@ -1,54 +1,73 @@
 import React, { useState } from "react";
-import { CheckMarkIcon, PencilIcon, PlusIcon } from "./Icons";
+import {
+  CheckMarkIcon,
+  PencilIcon,
+  PlusIcon,
+} from "components/Icons";
 import "./ItemList.css";
-import { Input } from "./Input";
-import { Button, IconButton } from "./Button";
+import { Input } from "components/Input";
+import { Button, IconButton } from "components/Button";
+import { ListItem } from "lib/use-wheel-data";
+import { DubOrLSwitch } from "components/DubOrLSwitch";
 
 type ItemListProps = {
-  values: string[];
-  onChange: (values: string[]) => void;
-  children: React.ReactNode;
+  values: ListItem[];
+  onChange: (values: ListItem[]) => void;
 };
 
 type ItemListItemProps = {
-  value: string;
-  onChange: (value: string) => void;
+  value: ListItem;
+  onChange: (value: ListItem) => void;
   onRemove: () => void;
 };
 
 const ItemListItem = ({ value, onChange, onRemove }: ItemListItemProps) => {
-  const [inEditMode, setInEditMode] = useState(value === "");
+  const [inEditMode, setInEditMode] = useState(value.value === "");
 
   const finishEditing = () => {
     if (inEditMode) {
-      onChange(value);
+      onChange({
+        ...value,
+        value: value.value.trim(),
+      });
     }
     setInEditMode((v) => !v);
   };
 
   return (
     <div className="list-item">
-      <div>
+      <DubOrLSwitch
+        value={value.isDub}
+        onChange={v => onChange({ ...value, isDub: v })}
+        className="switch"
+      />
+
+      <div className="value-input">
         {inEditMode ? (
           <Input
             ref={(el) => {
               el?.focus();
             }}
-            defaultValue={value}
-            onChange={(e) => onChange(e.target.value)}
+            defaultValue={value.value}
+            onChange={(e) => onChange({ ...value, value: e.target.value })}
             onKeyUp={(e) => {
               if (e.key === "Enter") {
                 finishEditing();
               }
             }}
+            placeholder="Item text"
           />
+        ) : value.value.length ? (
+          value.value
         ) : (
-          value
+          <i className="no-value">No Value</i>
         )}
       </div>
+
       <IconButton onClick={finishEditing}>
         {inEditMode ? <CheckMarkIcon size={20} /> : <PencilIcon size={20} />}
       </IconButton>
+
       <IconButton onClick={onRemove}>
         <PlusIcon size={20} className="rotate" />
       </IconButton>
@@ -56,22 +75,22 @@ const ItemListItem = ({ value, onChange, onRemove }: ItemListItemProps) => {
   );
 };
 
-export const ItemList = ({ values, onChange, children }: ItemListProps) => {
+export const ItemList = ({ values, onChange }: ItemListProps) => {
   return (
     <div className="item-list">
-      <div className="header">
-        <div className="header-text">{children}</div>
-        <Button
-          variant="primary"
-          className="add-button"
-          onClick={() => onChange([...values, ""])}
-        >
-          <PlusIcon size={18} />
-          <div>Add Item</div>
-        </Button>
-      </div>
+      <div className="header-text">Wheel Items</div>
 
       <div className="list-container">
+        <Button
+          variant="secondary"
+          className="add-button"
+          onClick={() => onChange([{ isDub: true, value: "" }, ...values])}
+        >
+          <div className="add-btn-content">
+            <PlusIcon size={18} />
+            <div>Add Item</div>
+          </div>
+        </Button>
         {values.map((value, i) => (
           <ItemListItem
             key={i}

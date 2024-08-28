@@ -1,32 +1,21 @@
-import "./App.css";
-import { ItemList } from "./ItemList";
-import { Wheel } from "./Wheel";
-import { useWheelData } from "./use-wheel-data";
+import "App.css";
+import { ItemList } from "components/ItemList";
+import { Queue } from "components/Queue";
+import { Wheel } from "components/Wheel";
+import { useWheelData } from "lib/use-wheel-data";
 
 function App() {
-  const {
-    wheelData,
-    setPositiveItems,
-    setNegativeItems,
-    positiveItems,
-    negativeItems,
-  } = useWheelData();
+  const { wheelData, items, setItems } = useWheelData();
 
   return (
     <div className="App">
-      <Wheel data={wheelData} />
+      <div className="wheel">
+        <Wheel data={wheelData} />
+      </div>
 
       <div className="lists-and-queue">
-        <div className="lists">
-          <ItemList values={positiveItems} onChange={setPositiveItems}>
-            Dubs
-          </ItemList>
-
-          <ItemList values={negativeItems} onChange={setNegativeItems}>
-            Ls
-          </ItemList>
-        </div>
-        <div className="queue">queue</div>
+        <ItemList values={items} onChange={setItems} />
+        <Queue />
       </div>
     </div>
   );

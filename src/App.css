@@ -5,6 +5,10 @@
   column-gap: 16px;
 }
 
+.wheel {
+  /* align-self: flex-start; */
+}
+
 .lists-and-queue {
   display: grid;
   grid-template-columns: 1fr;
